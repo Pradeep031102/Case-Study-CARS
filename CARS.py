@@ -24,12 +24,13 @@ def main():
         if choice == '1':
             incident_type = input("Enter incident type: ")
             incident_date = input("Enter incident date (YYYY-MM-DD): ")
-            location = input("Enter location (Latitude and Longitude): ")
+            location_longitude = input("Enter location Longitude: ")
+            location_latitude = input("Enter location Latitude: ")
             description = input("Enter description: ")
             status = input("Enter status: ")
             victim_id = int(input("Enter victim ID: "))
             suspect_id = int(input("Enter suspect ID: "))
-            incident = Incident(None,incident_type, incident_date, location, description, status, victim_id, suspect_id)
+            incident = Incident(None,incident_type, incident_date, location_longitude, location_latitude, description, status, victim_id, suspect_id)
             if service.createIncident(incident):
                 print("Incident created successfully.")
 
@@ -57,7 +58,7 @@ def main():
 
         elif choice == '5':
             incident_id = int(input("Enter incident ID: "))
-            incident = Incident(incident_id, None, None, None, None, None, None, None)
+            incident = Incident(incident_id, None, None, None, None, None, None, None, None)
             report = service.generateIncidentReport(incident)
             print(report)
 
@@ -65,7 +66,7 @@ def main():
             case_description = input("Enter case description: ")
             location = input("Enter Location of Incident: ")
             incident_ids = input("Enter incident IDs (comma separated): ").split(',')
-            incidents = [Incident(int(id), None, None, None, None, None, None, None) for id in incident_ids]
+            incidents = [Incident(int(id), None, None, None, None, None, None, None, None) for id in incident_ids]
             case = service.createCase(case_description, location, incidents)
             print(f"Case created: {case}")
 

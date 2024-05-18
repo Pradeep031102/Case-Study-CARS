@@ -8,9 +8,9 @@ class CrimeAnalysisServiceImpl(ICrimeAnalysisService):
 
     def createIncident(self, incident):
         cursor = self.connection.cursor()
-        query = """INSERT INTO Incident (IncidentType, IncidentDate, Location, Description, Status, VictimID, SuspectID) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?)"""
-        cursor.execute(query, incident.incident_type, incident.incident_date, incident.location, incident.description, incident.status, incident.victim_id, incident.suspect_id)
+        query = """INSERT INTO Incident (IncidentType, IncidentDate, Location_Longitude, Location_Latitude, Description, Status, VictimID, SuspectID) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
+        cursor.execute(query, incident.incident_type, incident.incident_date, incident.location_longitude, incident.location_latitude, incident.description, incident.status, incident.victim_id, incident.suspect_id)
         self.connection.commit()
         return True
 
