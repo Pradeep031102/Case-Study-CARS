@@ -14,7 +14,8 @@ class TestCrimeAnalysisService(unittest.TestCase):
             "incident_id":15 ,
             "incident_type": "Theft",
             "incident_date": '2024-04-15',
-            "location":"Chennai",
+            "location_longitude": 45.9078,
+            "location_latitude": -24.7893,
             "description": "Robbery",
             "status": "Open",
             "victim_id": 101,
@@ -35,7 +36,7 @@ class TestCrimeAnalysisService(unittest.TestCase):
     
     def test_update_incident_status_success(self):
         # Mock user input
-        incident_id = 1
+        incident_id = 2
         new_status = "Closed"
         service = CrimeAnalysisServiceImpl()
 
