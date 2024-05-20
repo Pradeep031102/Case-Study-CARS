@@ -1,4 +1,5 @@
 from dao.ICrimeAnalysisService import ICrimeAnalysisService
+from entity.Case import Case
 from util.DBConnUtil import DBConnUtil
 from exception.CustomerExceptions import IncidentNumberNotFoundException
 
@@ -53,12 +54,12 @@ class CrimeAnalysisServiceImpl(ICrimeAnalysisService):
             report = cursor.fetchone()
             return report
 
-    def createCase(self, case_description, location, incidents):
+    def createCase(self, case_description, incidents):
         cursor = self.connection.cursor()
         
         for incident in incidents:
-            case_incident_query = "INSERT INTO Evidence (Description, LocationFound, IncidentID) VALUES (?,?,?)"
-            cursor.execute(case_incident_query, (case_description), location, (incident.incident_id))
+            case_incident_query = "INSERT INTO [Case] (CaseDescription,IncidentIDs) VALUES (?,?)"
+            cursor.execute(case_incident_query, (case_description), (incident.incident_id))
         self.connection.commit()
         return {"description": case_description, "incidents": incidents}
 
@@ -66,26 +67,26 @@ class CrimeAnalysisServiceImpl(ICrimeAnalysisService):
 
     def getCaseDetails(self, case_id):
         cursor = self.connection.cursor()
-        query = "SELECT * FROM Evidence WHERE EvidenceID = ?"
+        query = "SELECT * FROM [Case] WHERE CaseID = ?"
         cursor.execute(query, case_id)
         case = cursor.fetchone()
         if not case:
             return None
 
-        incidents_query = "SELECT * FROM Incident WHERE IncidentID IN (SELECT IncidentID FROM Evidence WHERE EvidenceID = ?)"
+        incidents_query = "SELECT * FROM Incident WHERE IncidentID IN (SELECT IncidentIDs FROM [Case] WHERE CaseID = ?)"
         cursor.execute(incidents_query, case_id)
         incidents = cursor.fetchall()
         return {"case": case, "incidents": incidents}
 
-    def updateCaseDetails(self, case):
+    def updateCaseDetails(self, case_id, case_description):
         cursor = self.connection.cursor()
-        query = "UPDATE Evidence SET Description = ? WHERE EvidenceID = ?"
-        cursor.execute(query, case['description'], case['case_id'])
+        query = "UPDATE [Case] SET CaseDescription = ? WHERE CaseID = ?"
+        cursor.execute(query, case_description, case_id)
         self.connection.commit()
         return True
 
     def getAllCases(self):
-         query = "SELECT * FROM Evidence"
+         query = "SELECT * FROM [Case]"
          cursor = self.connection.cursor()
          cursor.execute(query)
          cases = cursor.fetchall()

@@ -84,3 +84,9 @@ ReportDate date,
 ReportDetails varchar(400),
 [Status] varchar (600)
 );
+
+CREATE TABLE [Case] (
+    caseID INT PRIMARY KEY IDENTITY NOT NULL,
+    caseDescription VARCHAR(MAX),
+    incidentIDs VARCHAR(MAX)
+);

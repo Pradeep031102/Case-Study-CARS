@@ -1,5 +1,6 @@
 from dao.CrimeAnalysisServiceImpl import CrimeAnalysisServiceImpl
 from entity.Incident import Incident
+from entity.Case import Case
 from exception.CustomerExceptions import IncidentNumberNotFoundException
 
 def display_menu():
@@ -63,25 +64,38 @@ def main():
             print(report)
 
         elif choice == '6':
-            case_description = input("Enter case description: ")
-            location = input("Enter Location of Incident: ")
-            incident_ids = input("Enter incident IDs (comma separated): ").split(',')
-            incidents = [Incident(int(id), None, None, None, None, None, None, None, None) for id in incident_ids]
-            case = service.createCase(case_description, location, incidents)
-            print(f"Case created: {case}")
-
+            # Collect input for creating a new case
+            caseID = int(input("Enter Case ID: "))
+            caseDescription = input("Enter Case Description: ")
+            incidentIDs = input("Enter Incident IDs (comma separated): ").split(',')
+            incidents = [Incident(int(id), None, None, None, None, None, None, None, None) for id in incidentIDs]
+            if incidents:
+                createdCase = service.createCase(caseDescription, incidents)
+                if createdCase is not None:
+                    print("Case created successfully!")
+                else:
+                    print("Failed to create case.")
+            else:
+                print("No valid incidents found.")
+                
         elif choice == '7':
-            case_id = int(input("Enter case ID: "))
-            case_details = service.getCaseDetails(case_id)
-            print(case_details)
+            # Collect input for getting case details
+            caseID = int(input("Enter Case ID: "))
+            case_details = service.getCaseDetails(caseID)
+            if case_details:
+                print(case_details)
+            else:
+                print("Case not found.")
 
         elif choice == '8':
             case_id = int(input("Enter case ID: "))
-            case_description = input("Enter new case description: ")
-            case = {"case_id": case_id, "description": case_description}
-            if service.updateCaseDetails(case):
+            case = service.getCaseDetails(case_id)
+            if case:
+                case_description = input("Enter new case description: ")
+                service.updateCaseDetails(case_id,case_description)
                 print("Case details updated successfully.")
-
+            else:
+                print("Case not found.")
         elif choice == '9':
             all_cases = service.getAllCases()
             for case in all_cases:

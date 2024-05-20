@@ -54,6 +54,34 @@ VALUES
 ('DNA sample collected from the crime scene.', 'On the victim''s body', 10);
 
 
+INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation)
+VALUES 
+('New York Police Department', 'New York', 'nypd@example.com, 1234567890'),
+('Los Angeles Police Department', 'Los Angeles', 'lapd@example.com, 9876543210'),
+('Chicago Police Department', 'Chicago', 'cpd@example.com, 5555555555'),
+('London Metropolitan Police Service', 'London', 'metpolice@example.com, 1112223333'),
+('Miami Police Department', 'Miami', 'mpd@example.com, 9998887777'),
+('Tokyo Metropolitan Police Department', 'Tokyo', 'tmpd@example.com, 4445556666'),
+('Sydney Police Department', 'Sydney', 'spd@example.com, 7778889999'),
+('Toronto Police Service', 'Toronto', 'tps@example.com, 8889990000'),
+('Berlin Police Department', 'Berlin', 'bpd@example.com, 1112223333'),
+('Paris Police Prefecture', 'Paris', 'ppp@example.com, 2223334444');
+
+
+INSERT INTO [Case] (caseDescription, incidentIDs) VALUES
+('Burglary at downtown warehouse', '2'),
+('Car accident on highway 50', '5'),
+('Shoplifting at mall', '6'),
+('Vandalism in city park', '1'),
+('Fraudulent credit card transactions', '8'),
+('Fire in residential building', '4'),
+('Assault outside nightclub', '7'),
+('Missing person report', '8'),
+('Drug trafficking investigation', '9'),
+('Cybersecurity breach at local bank', '3');
+
+
+
 INSERT INTO Officers (FirstName, LastName, BadgeNumber, [Rank], ContactInformation, AgencyId)
 VALUES 
 ('John', 'Smith', '12345', 'Detective', 'johnsmith@example.com, 1002003000', 10001),
@@ -67,19 +95,6 @@ VALUES
 ('William', 'Garcia', '56789', 'Officer', 'williamgarcia@example.com, 9001002000', 10009),
 ('Ethan', 'Lopez', '98765', 'Captain', 'ethanlopez@example.com, 10020030000', 10010);
 
-
-INSERT INTO LawEnforcementAgency (AgencyName, Jurisdiction, ContactInformation)
-VALUES 
-('New York Police Department', 'New York', 'nypd@example.com, 1234567890'),
-('Los Angeles Police Department', 'Los Angeles', 'lapd@example.com, 9876543210'),
-('Chicago Police Department', 'Chicago', 'cpd@example.com, 5555555555'),
-('London Metropolitan Police Service', 'London', 'metpolice@example.com, 1112223333'),
-('Miami Police Department', 'Miami', 'mpd@example.com, 9998887777'),
-('Tokyo Metropolitan Police Department', 'Tokyo', 'tmpd@example.com, 4445556666'),
-('Sydney Police Department', 'Sydney', 'spd@example.com, 7778889999'),
-('Toronto Police Service', 'Toronto', 'tps@example.com, 8889990000'),
-('Berlin Police Department', 'Berlin', 'bpd@example.com, 1112223333'),
-('Paris Police Prefecture', 'Paris', 'ppp@example.com, 2223334444');
 
 
 INSERT INTO Reports (IncidentID, ReportingOfficer, ReportDate, ReportDetails, [Status])
